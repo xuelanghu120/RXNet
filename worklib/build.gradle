@@ -1,0 +1,150 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+//apply plugin: 'bintray-release'
+
+
+// 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
+// 这个version影响后面的引用
+version = "0.0.9"
+
+android {
+
+    resourcePrefix "cc_" //随意填写 没有修改
+
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 24
+        versionCode 2
+        versionName "1.1"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //添加orm的jar包然后添加的
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    //okhttp
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    //rxjava
+    compile 'io.reactivex:rxjava:1.0.13'
+    compile 'io.reactivex:rxandroid:1.0.1'
+    //logger日志
+    compile 'com.orhanobut:logger:1.3'
+    //    compile 'com.github.orhanobut:logger:1.12'
+    //Gosn解析包
+    compile 'com.google.code.gson:gson:2.6.2'
+    //请求权限
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+    compile files('libs/ormlite-core-5.0.jar')
+    compile files('libs/ormlite-android-5.0.jar')
+
+    //图片glide加载
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //图形处理
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
+}
+
+
+
+def siteUrl = 'https://github.com/xuelanghu120/RxOkNet '   // 项目的主页
+def gitUrl = 'https://github.com/xuelanghu120/RxOkNet .git'   // Git仓库的url
+group = "com.huxin.common"            // Maven Group ID for the artifact，一般填你唯一的包名
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                // Add your description here
+                name 'Android CrashCatcher'     //项目的描述 你可以多写一点
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'xuzhu'        //填写的一些基本信息
+                        name 'xuzhu'
+                        email 'huzhenliang120@163.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+//配置自动生成JavaDoc
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+//自己添加的
+//添加UTF-8编码否则注释可能JAVADOC文档可能生成不了
+javadoc {
+    options{
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+        title "swipeJavaDoc"
+    }
+}
+
+
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = "hu"
+        name = "rxoknet"    //发布到JCenter上的项目名字
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
