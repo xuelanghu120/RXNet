@@ -6,8 +6,7 @@ import android.graphics.Matrix;
 import android.util.Log;
 
 
-import com.huxin.common.application.Global;
-
+import com.huxin.common.utils.file.FileUtils;
 import com.huxin.common.utils.image.entity.ImageItem;
 import com.orhanobut.logger.Logger;
 
@@ -107,20 +106,11 @@ public class ImageCompressUtil {
             }
             is.close();
             byte[] data = baos.toByteArray();
-
             int degree = BitmapUtils.getBitmapDegree(new File(fromPath));
 
             BitmapFactory.Options opts = new BitmapFactory.Options();
             opts.inJustDecodeBounds = true;// 不去真的解析图片，只是获取图片的头部信息，包含宽高等；
-
             BitmapFactory.decodeByteArray(data, 0, data.length, opts);
-
-            // Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0,
-            // data.length,
-            // opts);
-
-            // int bitmapWidth = bitmap.getWidth();
-            // int bitmapHeight = bitmap.getHeight();
 
             int bitmapWidth = opts.outWidth;
             int bitmapHeight = opts.outHeight;
@@ -134,10 +124,6 @@ public class ImageCompressUtil {
             opts.inPurgeable = true;
             opts.inTempStorage = new byte[12 * 1024];
 
-            // bitmap = BitmapFactory.decodeFile(fromPath,opts);
-
-            // File file2 = new File(fromPath);
-            // bitmap = BitmapFactory.decodeStream(fis, null, opts);
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, opts);
 
             File file = scaleImage(toPath, width, height, defauQuality, bitmap, bitmapWidth,
@@ -352,8 +338,12 @@ public class ImageCompressUtil {
     }
 
 
-
-
+    /**
+     * 图片压缩
+     * @param items
+     * @param tempPath
+     * @return
+     */
     public static ArrayList<ImageItem> compressImage(ArrayList<ImageItem> items, String tempPath) {
         compressImageList.clear();
         for (ImageItem item : items) {
@@ -373,7 +363,7 @@ public class ImageCompressUtil {
 
             File file = new File(path);
             if (file.exists()) {
-                ImageFileUtils.initFilePath(ImageFileUtils.initSDcardPaht(Global.getContext()) + tempPath);//修复bug 目录不存在
+                FileUtils.initFilePath(tempPath);//修复bug 目录不存在
                 String savePath = tempPath + item.getImageId() + ".jpg";
                 File saveFile = compressImage(path, savePath);
                 if (saveFile != null && saveFile.exists()) {

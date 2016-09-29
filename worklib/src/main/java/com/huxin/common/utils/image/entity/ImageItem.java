@@ -7,6 +7,14 @@ import android.os.Parcelable;
 
 public class ImageItem  implements Parcelable {
 
+
+
+    private int photoId;
+    private String photoPath;
+    //private String thumbPath;
+    private int width;
+    private int height;
+
     public String id;
     public String imageId;
     public String thumbnailPath;
