@@ -1,6 +1,7 @@
 package com.huxin.common.http.responser;
 import android.text.TextUtils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -51,7 +52,7 @@ public abstract class AbstractResponser {
             dataObject = new JSONObject(result);
             isSuccess = isSuccess(dataObject);
             getErrorDesc(dataObject);
-        } catch (Exception e) {
+        } catch (JSONException e) {
             isSuccess = false;
             e.printStackTrace();
         }
