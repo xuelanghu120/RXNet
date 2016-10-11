@@ -12,19 +12,17 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * 同样的，在 setContentView() 之后调用 setTranslucent(Activity activity) 方法即可。
  * Created by 56417 on 2016/10/11.
  */
 
-public class StatusBarBackgroudUtils {
-
+public class StatusBarBackgroudUtil {
     /**
      * 设置状态栏颜色
      *
      * @param activity 需要设置的activity
      * @param color    状态栏颜色值
      */
-
+    //在 setContentView() 之后调用 setTranslucent(Activity activity) 方法即可。
     public static void setColor(Activity activity, int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // 设置状态栏透明
@@ -65,7 +63,6 @@ public class StatusBarBackgroudUtils {
 
     /**
      * 使状态栏透明
-     * <p>
      * 适用于图片作为背景的界面,此时需要图片填充到状态栏
      *
      * @param activity 需要设置的activity
