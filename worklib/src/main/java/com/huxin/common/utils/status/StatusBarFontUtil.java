@@ -14,6 +14,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
+ * 修改字体是不是只有MIUI6和flyme4有效
  * Created by 56417 on 2016/10/11.
  */
 
