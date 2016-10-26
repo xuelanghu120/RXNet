@@ -6,18 +6,18 @@ apply plugin: 'com.jfrog.bintray'
 
 // 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
 // 这个version影响后面的引用
-version = "1.0.2.2"
+version = "1.0.2.4"
 
 android {
 
     resourcePrefix "cc_" //随意填写 没有修改
 
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "24.0.3"
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 2
         versionName "1.1"
     }
@@ -42,7 +42,7 @@ tasks.withType(JavaCompile) {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:appcompat-v7:25.0.0'
     //okhttp
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     //rxjava
@@ -145,7 +145,9 @@ bintray {
     key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
     pkg {
+        //发布到Bintray的哪个仓库
         repo = "hu"
+        //发布到Bintray上的名字
         name = "rxoknet"    //发布到JCenter上的项目名字
         websiteUrl = siteUrl
         vcsUrl = gitUrl

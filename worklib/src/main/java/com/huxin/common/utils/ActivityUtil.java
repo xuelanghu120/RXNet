@@ -18,7 +18,7 @@ public class ActivityUtil {
     public static void toActivity(Context context, Class<?> cls) {
         Intent intent = new Intent();
         intent.setClass(context, cls);
-        ((Activity) context).startActivity(intent);
+        context.startActivity(intent);
     }
 
     public static void toActivity(Context context, Class<?> cls, String key,
@@ -26,7 +26,7 @@ public class ActivityUtil {
         Intent intent = new Intent();
         intent.setClass(context, cls);
         intent.putExtra(key, bundle);
-        ((Activity) context).startActivity(intent);
+        context.startActivity(intent);
     }
 
     public static void toActivity(Context context, Class<?> cls, Bundle bundle) {
@@ -35,7 +35,7 @@ public class ActivityUtil {
         if (bundle != null) {
             intent.putExtras(bundle);
         }
-        ((Activity) context).startActivity(intent);
+       context.startActivity(intent);
     }
 
     public static void toActivity(Context context, Class<?> cls, String key,
@@ -43,7 +43,7 @@ public class ActivityUtil {
         Intent intent = new Intent();
         intent.setClass(context, cls);
         intent.putExtra(key, parcelable);
-        ((Activity) context).startActivity(intent);
+         context.startActivity(intent);
     }
 
     public static void toActivity(Context context, Class<?> cls, String key,
@@ -51,7 +51,7 @@ public class ActivityUtil {
         Intent intent = new Intent();
         intent.setClass(context, cls);
         intent.putExtra(key, serializable);
-        ((Activity) context).startActivity(intent);
+        context.startActivity(intent);
     }
 
     public static void toActivity(Context context, Class<?> cls, String key,
@@ -59,7 +59,7 @@ public class ActivityUtil {
         Intent intent = new Intent();
         intent.setClass(context, cls);
         intent.putExtra(key, value);
-        ((Activity) context).startActivity(intent);
+        context.startActivity(intent);
     }
 
     public static void toActivityForResult(Context context, Class<?> cls,
