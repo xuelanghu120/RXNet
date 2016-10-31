@@ -122,7 +122,6 @@ public class ImageWorker {
         view.setImageBitmap(bitmap);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static void imageLoader(Context context, ImageView view, String url) {
         if (context instanceof Activity && ((Activity) context).isDestroyed()) {
             return;
