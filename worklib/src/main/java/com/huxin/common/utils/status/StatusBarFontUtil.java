@@ -118,7 +118,7 @@ public class StatusBarFontUtil {
 
 
     /**
-     * 设置状态栏图标为深色和魅族特定的文字风格
+     * 设置状态栏图标为深色和魅族特定的文字风格 Flyme4.0以上  魅族
      * 可以用来判断是否为Flyme用户
      * @param window 需要设置的窗口
      * @param dark 是否把状态栏字体及图标颜色设置为深色
@@ -154,7 +154,7 @@ public class StatusBarFontUtil {
     }
 
     /**
-     * 设置状态栏字体图标为深色，需要MIUIV6以上
+     * 设置状态栏字体图标为深色，需要MIUIV6以上 小米
      * @param window 需要设置的窗口
      * @param dark 是否把状态栏字体及图标颜色设置为深色
      * @return  boolean 成功执行返回true

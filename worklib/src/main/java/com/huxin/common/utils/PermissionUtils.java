@@ -28,18 +28,7 @@ public class PermissionUtils {
     public static Observable<Boolean> reqPermissionObservable(final Context context, String String) {
         return RxPermissions.getInstance(context)
 //                .request(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
-                .request(String)
-                .doOnNext(new Action1<Boolean>() {
-                    @Override
-                    public void call(Boolean aBoolean) {
-                        if (!aBoolean) {
-                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                    .setData(Uri.parse("package:" + Global.getContext().getPackageName()));
-                            context.startActivity(intent);
-                            ToastUtils.showShortToast(context, "请通过相关权限");
-                        }
-                    }
-                });
+                .request(String);
     }
 
     /**
@@ -52,18 +41,7 @@ public class PermissionUtils {
     public static Observable<Boolean> reqPermissionsObservable(final Context context, String... permissions) {
         return RxPermissions.getInstance(context)
 //                .request(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
-                .request(permissions)
-                .doOnNext(new Action1<Boolean>() {
-                    @Override
-                    public void call(Boolean aBoolean) {
-                        if (!aBoolean) {
-                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                    .setData(Uri.parse("package:" + Global.getContext().getPackageName()));
-                            context.startActivity(intent);
-                            ToastUtils.showShortToast(context, "请通过相关权限");
-                        }
-                    }
-                });
+                .request(permissions);
     }
 
 //    public static Observable<Boolean> reqPermissionsObservable2(final Context context, String... permissions) {
