@@ -28,6 +28,12 @@ public class GsonUtils {
         return Str;
     }
 
+    public static String toJsonString(List<IEntity> clazz) {
+        Gson gson = new GsonBuilder().create();
+        String Str = gson.toJson(clazz);
+        return Str;
+    }
+
     public static <T extends IEntity> T fromJson(String jsonData, Class<T> tClass) {
         Gson gson = new GsonBuilder().create();
         T user = gson.fromJson(jsonData, tClass);
@@ -119,4 +125,9 @@ public class GsonUtils {
         // implement equals method too! (as per javadoc)
     }
 
+    public static String toJsonStringHttp(Object object) {
+        Gson gson = new GsonBuilder().create();
+        String Str = gson.toJson(object);
+        return Str;
+    }
 }

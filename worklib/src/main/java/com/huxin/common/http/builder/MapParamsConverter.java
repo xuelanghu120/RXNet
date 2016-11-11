@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.huxin.common.http.OkHttpWork;
+import com.huxin.common.utils.GsonUtils;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -32,7 +33,7 @@ public class MapParamsConverter {
         if (map == null || map.size() == 0) return builder.build();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             String key = entry.getKey();
-            String value = (String) entry.getValue();
+            String value = GsonUtils.toJsonStringHttp(entry.getValue());
             if (key != null && value != null) {
                 builder.add(key, value);
             }
